@@ -19,6 +19,7 @@ steps:
     inputs:
       provProfileSecureFile: 'Wendercast.mobileprovision'
   - task: Xcode@5
+    displayName: 'Build iOS App'
     inputs:
       actions: 'build'
       scheme: ''
@@ -26,3 +27,4 @@ steps:
       configuration: 'Release'
       xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
       xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
+      packageApp: true
