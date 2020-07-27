@@ -13,7 +13,7 @@ steps:
   - task: InstallAppleCertificate@2
     inputs:
       certSecureFile: 'Wendercast.p12'
-      certPwd: $(iOSP12Password)
+      certPwd: 'th05pass'
 
   - task: InstallAppleProvisioningProfile@1
     inputs:
