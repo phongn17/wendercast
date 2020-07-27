@@ -14,7 +14,6 @@ steps:
     inputs:
       certSecureFile: 'Wendercast.p12'
       certPwd: 'th05pass'
-
   - task: InstallAppleProvisioningProfile@1
     inputs:
       provProfileSecureFile: 'Wendercast.mobileprovision'
@@ -25,7 +24,8 @@ steps:
       scheme: ''
       sdk: 'iphoneos'
       configuration: 'Release'
-      exportMethod: 'Development'
+      exportOptions: 'specify'
+      exportMethod: 'development'
       xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
       xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
       packageApp: true
