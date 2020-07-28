@@ -9,14 +9,21 @@ trigger:
 pool:
   vmImage: 'macos-latest'
 
+variables:
+  - group: ios-pipeline
+
 steps:
   - task: InstallAppleCertificate@2
     inputs:
       certSecureFile: 'Wendercast.p12'
       certPwd: 'th05pass'
+      keychain: 'temp'
+      deleteCert: true
   - task: InstallAppleProvisioningProfile@1
     inputs:
+      provisioningProfileLocation: 'secureFiles'
       provProfileSecureFile: 'Wendercast.mobileprovision'
+      removeProfile: true
   - task: Xcode@5
     displayName: 'Build iOS App'
     inputs:
@@ -24,17 +31,17 @@ steps:
       scheme: ''
       sdk: 'iphoneos'
       configuration: 'Release'
-      exportOptions: 'specify'
-      exportMethod: 'development'
       xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
       xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
-      exportPath: '$(build.artifactStagingDirectory)'
       packageApp: true
       signingOption: 'manual'
       # FYI $(APPLE_CERTIFICATE_SIGNING_IDENTITY) is automatically populated by the InstallAppCertificate task
       signingIdentity: '$(APPLE_CERTIFICATE_SIGNING_IDENTITY)'
       # FYI $(APPLE_PROV_PROFILE_UUID) is automatically populated by the InstallAppleProvisioningProfile task
       provisioningProfileUuid: '$(APPLE_PROV_PROFILE_UUID)'
+      exportOptions: 'specify'
+      exportMethod: 'development'
+      exportPath: '$(build.artifactStagingDirectory)'
   - task: PublishBuildArtifacts@1
     displayName: 'Publish iOS artifact'
     inputs:
