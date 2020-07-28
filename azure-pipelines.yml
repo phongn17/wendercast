@@ -30,6 +30,11 @@ steps:
       xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
       exportPath: '$(build.artifactStagingDirectory)'
       packageApp: true
+      signingOption: 'manual'
+      # FYI $(APPLE_CERTIFICATE_SIGNING_IDENTITY) is automatically populated by the InstallAppCertificate task
+      signingIdentity: '$(APPLE_CERTIFICATE_SIGNING_IDENTITY)'
+      # FYI $(APPLE_PROV_PROFILE_UUID) is automatically populated by the InstallAppleProvisioningProfile task
+      provisioningProfileUuid: '$(APPLE_PROV_PROFILE_UUID)'
   - task: PublishBuildArtifacts@1
     displayName: 'Publish iOS artifact'
     inputs:
