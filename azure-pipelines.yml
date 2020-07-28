@@ -28,4 +28,10 @@ steps:
       exportMethod: 'development'
       xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
       xcodeVersion: 'default' # Options: 8, 9, 10, default, specifyPath
+      exportPath: '$(build.artifactStagingDirectory)'
       packageApp: true
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish iOS artifact'
+    inputs:
+      pathtoPublish: '$(build.artifactStagingDirectory)' 
+      artifactName: 'Wendercast IPA'
